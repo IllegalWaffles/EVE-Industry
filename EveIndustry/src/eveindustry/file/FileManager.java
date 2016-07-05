@@ -6,6 +6,7 @@
 package eveindustry.file;
 
 import eveindustry.EveIndustryApp;
+import eveindustry.data.BlueprintJob;
 import eveindustry.data.DataManager;
 import eveindustry.data.Item;
 import java.io.File;
@@ -29,14 +30,11 @@ public class FileManager {
     EveIndustryApp app;
     DataManager data;
     
-    ArrayList<Item> itemIDList;
-    
     public FileManager(EveIndustryApp initApp)
     {
     
         app = initApp;
         data = initApp.getDataManager();
-        itemIDList = new ArrayList<>();
     
     }
     
@@ -47,7 +45,36 @@ public class FileManager {
     
     }
     
-    public void loadBlueprintData(){}
+    public void loadBlueprintData() throws FileNotFoundException {
+    
+        Scanner matsScanner = new Scanner(new File(BLUEPRINT_MATS_PATH));
+        
+        String parsed[];
+        int currentItemID = -1;
+        BlueprintJob newJob;
+        
+        while(matsScanner.hasNextLine()) {
+        
+            parsed = matsScanner.nextLine().split(",");
+        
+            
+            
+        }
+        
+        matsScanner.close();
+        
+        Scanner runTimeScanner = new Scanner(new File(ACTIVITY_TIMES_PATH));
+        
+        while(runTimeScanner.hasNextLine())
+        {
+        
+            runTimeScanner.nextLine();
+        
+        }
+        
+        runTimeScanner.close();
+        
+    }
     
     public void loadItemIDs() throws FileNotFoundException {
     
@@ -64,10 +91,13 @@ public class FileManager {
             
             //System.out.println("Line number: " + i++);
             
-            if(isNumeric(parsed[0]) && (parsed[2].endsWith(" I") || parsed[2].endsWith(" II"))){
+            if(isNumeric(parsed[0]) && (parsed[2].endsWith(" I") || 
+                                        parsed[2].endsWith(" II") ||
+                                        parsed[2].endsWith(" II Blueprint") ||
+                                        parsed[2].endsWith(" I Blueprint"))){
              
                 parsed[2] = parsed[2].trim();
-                itemIDList.add(new Item(Integer.parseInt(parsed[0]), parsed[2]));
+                data.addItem(new Item(Integer.parseInt(parsed[0]), parsed[2]));
                 
             }
             

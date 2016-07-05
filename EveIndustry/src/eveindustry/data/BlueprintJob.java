@@ -1,7 +1,9 @@
 package eveindustry.data;
 
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -21,6 +23,10 @@ public class BlueprintJob {
     DoubleProperty profitPerRun;
     DoubleProperty profitPerHour;
     DoubleProperty profitPerWeekPerSlot;
+    IntegerProperty numberRuns;
+    IntegerProperty jobTime;
+    Item[] materials;
+    int[] materialQuantities;
     
     public BlueprintJob()
     {
@@ -32,7 +38,9 @@ public class BlueprintJob {
         profitPerRun = new SimpleDoubleProperty(DEFAULT_NUMERICAL);
         profitPerHour = new SimpleDoubleProperty(DEFAULT_NUMERICAL);
         profitPerWeekPerSlot = new SimpleDoubleProperty(DEFAULT_NUMERICAL);
-    
+        numberRuns = new SimpleIntegerProperty((int)DEFAULT_NUMERICAL);
+        jobTime = new SimpleIntegerProperty((int)DEFAULT_NUMERICAL);
+        
     }
     
     public BlueprintJob(String blueprintName, 
@@ -41,7 +49,9 @@ public class BlueprintJob {
                         double producedSellPrice,
                         double profitPerRun,
                         double profitPerHour,
-                        double profitPerWeekPerSlot)
+                        double profitPerWeekPerSlot,
+                        int numberRuns,
+                        int jobTime)
     {
     
         this.blueprintName.set(blueprintName);
@@ -51,6 +61,8 @@ public class BlueprintJob {
         this.profitPerRun.set(profitPerRun);
         this.profitPerHour.set(profitPerHour);
         this.profitPerWeekPerSlot.set(profitPerWeekPerSlot);
+        this.numberRuns.set(numberRuns);
+        this.jobTime.set(jobTime);
     
     }
     
@@ -62,6 +74,8 @@ public class BlueprintJob {
     public double getProfitPerRun(){return profitPerRun.get();}
     public double getProfitPerHour(){return profitPerHour.get();}
     public double getProfitPerWeekPerSlot(){return profitPerWeekPerSlot.get();}
+    public int getNumberRuns(){return numberRuns.get();}
+    public int getjobTime(){return jobTime.get();}
     
     //Setters
     public void setBlueprintName(String s){blueprintName.set(s);}
@@ -71,5 +85,7 @@ public class BlueprintJob {
     public void setProfitPerRun(double d){profitPerRun.set(d);}
     public void setProfitPerHour(double d){profitPerHour.set(d);}
     public void setProfitPerWeekPerSlot(double d){profitPerWeekPerSlot.set(d);}
+    public void setNumberRuns(int i){numberRuns.set(i);}
+    public void setJobTime(int i){jobTime.set(i);}
     
 }
