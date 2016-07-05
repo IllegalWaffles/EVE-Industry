@@ -1,29 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package eveindustry.data;
 
 import eveindustry.EveIndustryApp;
-import java.util.HashMap;
+import java.util.ArrayList;
+import javafx.collections.ObservableList;
 
 /**
  *
  * This class will handle all data operations (loading the changing market data)
  * 
- * Should utilize hashmaps considering the large table size, and need for
- * quick lookup.
- * 
- * @author Kuba Gasiorowski
+ * @author Kuba Gasiorowski/IllegalWaffles
  */
 public class DataManager {
     
     //The central application
     EveIndustryApp app;
     
-    //Corresponds to the list of items and their ID's
-    HashMap<String, Integer> itemIdMap;
+    //Corresponds to the list of items and their IDs
+    ArrayList<Item> itemList;
+    
+    //The list of blueprint jobs currently loaded
+    ObservableList<BlueprintJob> items;
     
     public DataManager(EveIndustryApp initApp)
     {
@@ -32,10 +28,12 @@ public class DataManager {
     
     }
     
-    public void reloadData()
+    public ObservableList<BlueprintJob> getItems(){return items;}
+    
+    public void reset()
     {
     
-        
+        items.clear();
     
     }
     

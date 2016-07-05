@@ -1,18 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package eveindustry.controller;
 
 import eveindustry.EveIndustryApp;
 
 /**
  *
- * @author Kuba
+ * @author Kuba Gasiorowski/IllegalWaffles
  */
 public class Controller {
     
+    //The application which has this controller
     EveIndustryApp app;
 
     public Controller(EveIndustryApp initApp) {
@@ -29,7 +25,7 @@ public class Controller {
     
     public void handleExit() {
     
-        
+        app.getMainStage().close();
     
     }
     

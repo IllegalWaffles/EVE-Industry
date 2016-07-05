@@ -1,14 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package eveindustry;
 
-import eveindustry.blueprint.BlueprintJob;
+import eveindustry.data.BlueprintJob;
 import eveindustry.controller.Controller;
 import eveindustry.data.DataManager;
 import eveindustry.file.FileManager;
+import java.io.FileNotFoundException;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -24,7 +20,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author Kuba Gasiorowski
+ * @author Kuba Gasiorowski/IllegalWaffles
  */
 public class EveIndustryApp extends Application{
 
@@ -52,21 +48,46 @@ public class EveIndustryApp extends Application{
     DataManager data;
     FileManager file;
     
+    Stage mainStage;
+    
     @Override
-    public void start(Stage mainStage)
+    public void start(Stage stage)
     {
     
+        this.mainStage = stage;
+        
         data = new DataManager(this);
         file = new FileManager(this);
         
-        setupComponents(mainStage);
+        setupComponents();
         setupHandlers();
+        //Gui done setting up.
+        
+        //Now load static data.
+        try{
+            file.loadAllData();
+        } catch(FileNotFoundException e) {
+        
+            System.out.println("A file was not found: " + e);
+        
+        }
         
         mainStage.show();
         
     }
     
-    private void setupComponents(Stage mainStage){
+    public void reloadWorkspace(){
+    
+        blueprintTable.getItems().clear();
+        blueprintTable.getItems().setAll(data.getItems());
+    
+    }
+    
+    public FileManager getFileManager(){return file;}
+    public DataManager getDataManager(){return data;}
+    public Stage getMainStage(){return mainStage;}
+    
+    private void setupComponents(){
             
         loadMarketData = new Button(RELOAD_BUTTON_TEXT);
         exitButton = new Button(EXIT_BUTTON_TEXT);
@@ -90,7 +111,7 @@ public class EveIndustryApp extends Application{
         blueprintNameColumn.setCellValueFactory(new PropertyValueFactory<BlueprintJob, String>("blueprintName"));
         producedNameColumn.setCellValueFactory(new PropertyValueFactory<BlueprintJob, String>("producedName"));
         costToProduceColumn.setCellValueFactory(new PropertyValueFactory<BlueprintJob, Double>("costToProduce"));
-        producedSellPriceColumn.setCellValueFactory(new PropertyValueFactory<BlueprintJob, Double>("produceSellPrice"));
+        producedSellPriceColumn.setCellValueFactory(new PropertyValueFactory<BlueprintJob, Double>("producedSellPrice"));
         profitPerRunColumn.setCellValueFactory(new PropertyValueFactory<BlueprintJob, Double>("profitPerRun"));
         profitPerHourColumn.setCellValueFactory(new PropertyValueFactory<BlueprintJob, Double>("profitPerHour"));
         profitPerWeekPerSlotColumn.setCellValueFactory(new PropertyValueFactory<BlueprintJob, Double>("profitPerWeekPerSlot"));
@@ -131,22 +152,20 @@ public class EveIndustryApp extends Application{
         
         exitButton.setOnAction(e -> {
             
+            disableButtons();
             handler.handleExit();
+            enableButtons();
             
         });
         
         loadMarketData.setOnAction(e -> {
         
+            disableButtons();
             handler.handleLoadMarketData();
-        
+            enableButtons();
+            
         });
         
-        
-    
-    }
-    
-    public void reloadWorkspace(){
-    
         
     
     }
@@ -164,9 +183,6 @@ public class EveIndustryApp extends Application{
         loadMarketData.setDisable(true);
     
     }
-    
-    public FileManager getFileManager(){return file;}
-    public DataManager getDataManager(){return data;}
     
     public static void main(String[] args) {
         
