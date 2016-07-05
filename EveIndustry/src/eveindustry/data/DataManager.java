@@ -17,7 +17,7 @@ import java.util.HashMap;
  * 
  * @author Kuba Gasiorowski
  */
-public class MarketData {
+public class DataManager {
     
     //The central application
     EveIndustryApp app;
@@ -25,7 +25,7 @@ public class MarketData {
     //Corresponds to the list of items and their ID's
     HashMap<String, Integer> itemIdMap;
     
-    public MarketData(EveIndustryApp initApp)
+    public DataManager(EveIndustryApp initApp)
     {
     
         app = initApp;

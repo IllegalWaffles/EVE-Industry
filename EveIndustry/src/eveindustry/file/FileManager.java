@@ -25,4 +25,10 @@ public class FileManager {
     
     }
     
+    public void loadAllData(){}
+    
+    public void loadBlueprintData(){}
+    
+    public void loadItemIDs(){}
+    
 }
