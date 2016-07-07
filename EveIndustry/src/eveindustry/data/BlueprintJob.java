@@ -1,5 +1,6 @@
 package eveindustry.data;
 
+import java.util.ArrayList;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -25,11 +26,11 @@ public class BlueprintJob {
     DoubleProperty profitPerWeekPerSlot;
     IntegerProperty numberRuns;
     IntegerProperty jobTime;
-    Item[] materials;
-    int[] materialQuantities;
+    Item itemProduced;
+    ArrayList<Item> materials;
+    ArrayList<Integer> materialQuantities;
     
-    public BlueprintJob()
-    {
+    public BlueprintJob() {
     
         blueprintName = new SimpleStringProperty(DEFAULT_STRING);
         producedName = new SimpleStringProperty(DEFAULT_STRING);
@@ -41,6 +42,9 @@ public class BlueprintJob {
         numberRuns = new SimpleIntegerProperty((int)DEFAULT_NUMERICAL);
         jobTime = new SimpleIntegerProperty((int)DEFAULT_NUMERICAL);
         
+        materials = new ArrayList<>();
+        materialQuantities = new ArrayList<>();
+        
     }
     
     public BlueprintJob(String blueprintName, 
@@ -51,8 +55,7 @@ public class BlueprintJob {
                         double profitPerHour,
                         double profitPerWeekPerSlot,
                         int numberRuns,
-                        int jobTime)
-    {
+                        int jobTime){
     
         this.blueprintName.set(blueprintName);
         this.producedName.set(producedName);
@@ -63,7 +66,7 @@ public class BlueprintJob {
         this.profitPerWeekPerSlot.set(profitPerWeekPerSlot);
         this.numberRuns.set(numberRuns);
         this.jobTime.set(jobTime);
-    
+        
     }
     
     //Getters
@@ -76,6 +79,9 @@ public class BlueprintJob {
     public double getProfitPerWeekPerSlot(){return profitPerWeekPerSlot.get();}
     public int getNumberRuns(){return numberRuns.get();}
     public int getjobTime(){return jobTime.get();}
+    public ArrayList<Item> getMaterialsNeeded(){return materials;}
+    public ArrayList<Integer> getMaterialQuantities(){return materialQuantities;}
+    public Item getItemProduced(){return itemProduced;}
     
     //Setters
     public void setBlueprintName(String s){blueprintName.set(s);}
@@ -87,5 +93,25 @@ public class BlueprintJob {
     public void setProfitPerWeekPerSlot(double d){profitPerWeekPerSlot.set(d);}
     public void setNumberRuns(int i){numberRuns.set(i);}
     public void setJobTime(int i){jobTime.set(i);}
+    
+    public void setMaterialsNeeded(ArrayList<Item> matsNeeded) {
+    
+        this.materials = matsNeeded;
+    
+    }
+    
+    public void setMaterialQuantities(ArrayList<Integer> materialQuantities) {
+        
+        this.materialQuantities = materialQuantities;
+    
+    }
+    
+    public void setItemProduced(Item itemProduced) {
+    
+        this.itemProduced = itemProduced;
+        setBlueprintName(itemProduced.getName() + " Blueprint");
+        setProducedName(itemProduced.getName());
+        
+    }
     
 }
