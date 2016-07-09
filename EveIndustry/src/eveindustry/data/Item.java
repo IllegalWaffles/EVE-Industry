@@ -43,6 +43,14 @@ public class Item {
     
     }
     
+    public Item(Item copy) {
+    
+        this();
+        this.name = copy.name;
+        this.ID = copy.ID;
+    
+    }
+    
     public double getSellPrice(){return sellPrice;}
     public double getBuyPrice(){return buyPrice;}
     
@@ -56,6 +64,6 @@ public class Item {
     public void setID(int ID){this.ID = ID;}
  
     @Override
-    public String toString(){return ID + "," + name;}
+    public String toString(){return ID + ", " + name;}
     
 }

@@ -17,7 +17,9 @@ public class DataManager {
     EveIndustryApp app;
     
     //Corresponds to the list of items and their IDs
-    HashMap<Integer, Item> items;
+    HashMap<Integer, Item> itemsByID;
+    HashMap<String, Item> itemsByName;
+    ArrayList<Item> items;
     
     //The list of blueprint jobs currently loaded
     ObservableList<BlueprintJob> jobs;
@@ -31,7 +33,9 @@ public class DataManager {
     
         app = initApp;
     
-        items = new HashMap<>();
+        itemsByID = new HashMap<>();
+        itemsByName = new HashMap<>();
+        items = new ArrayList<>();
         jobs = FXCollections.observableArrayList();
         
     }
@@ -63,7 +67,7 @@ public class DataManager {
      * 
      * @return 
      */
-    public HashMap<Integer, Item> getItems() {
+    public ArrayList<Item> getItems() {
     
         return items;
     
@@ -75,8 +79,43 @@ public class DataManager {
      * @param item 
      */
     public void addItem(Item item) {
+            
+        if(itemsByID.containsKey(item.getID())) {
+            
+            System.out.println("Warning! ID number " + item.getID() + " is about to be overwritten! New item name: " + item.getName());
+            return;
+            
+        }
+            
+        items.add(item);
+        itemsByID.put(item.getID(), item);
+        itemsByName.put(item.getName(), item);
     
-        items.put(item.getID(), item);
+    }
+    
+    /**
+     * Finds an item by ID number.
+     * Returns null if that ID doesn't exist.
+     * 
+     * @param itemID
+     * @return 
+     */
+    public Item getItem(int itemID) {
+    
+        return itemsByID.get(itemID);
+    
+    }
+    
+    /**
+     * Finds an item by Name.
+     * Return null if that name doesn't exist.
+     * 
+     * @param itemName
+     * @return 
+     */
+    public Item getItem(String itemName) {
+    
+        return itemsByName.get(itemName);
     
     }
     
@@ -86,6 +125,8 @@ public class DataManager {
     public void reset() {
     
         items.clear();
+        itemsByID.clear();
+        itemsByName.clear();
         jobs.clear();
         
     }

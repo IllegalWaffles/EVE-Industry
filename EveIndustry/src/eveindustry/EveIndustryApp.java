@@ -65,7 +65,9 @@ public class EveIndustryApp extends Application{
         
         //Now load static data.
         try{
+            
             file.loadAllData();
+        
         } catch(FileNotFoundException e) {
         
             System.out.println("A file was not found: " + e);
@@ -73,6 +75,7 @@ public class EveIndustryApp extends Application{
         }
         
         mainStage.show();
+        reloadWorkspace();
         
     }
     
@@ -131,8 +134,6 @@ public class EveIndustryApp extends Application{
                               profitPerRunColumn,
                               profitPerHourColumn,
                               profitPerWeekPerSlotColumn);
-        
-        blueprintTable.getItems().add(new BlueprintJob());
         
         mainPane = new VBox();
         mainPane.getChildren().addAll(buttonBox, blueprintTable);
